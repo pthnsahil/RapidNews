@@ -10,13 +10,22 @@ function News() {
     const [bookmarked, setBookmarked] = useState({});
     const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('temp'));
 
-  
+    const Links={
+        "TV9 GUJARATI": "https://tv9gujarati.com/",
+        "BBC GUJARATI": "https://www.bbc.com/gujarati",
+        "ABP ASMITA": "https://gujarati.abplive.com/",
+        "INDIAN EXPRESS GUJARATI": "https://gujarati.indianexpress.com/"
+    }
     useEffect(() => {
         axios.post('http://localhost:5000/news/bookmark', { email,bookmarked })
             .then((res) => { setBookmarked(res.data); })
             .catch((err) => console.log(err));
     }, []);
 
+    function handleLink(source)
+    {
+       window.location.href=Links[source];
+    }
 
     function handleBookmark(article) {
             if(isLoggedIn)
@@ -42,7 +51,7 @@ function News() {
         <>
             <Navbar />
             <ToastContainer/>
-            <div style={{ textAlign: "center", fontSize: "60px" ,marginTop:"4rem" }}>{source}</div>
+            <div style={{ textAlign: "center", fontSize: "60px" ,marginTop:"4rem" }}  onClick={()=>handleLink(source)}>{source}</div>
             <div className='row d-flex justify-content-center' style={{ marginLeft: "20%", width: "60%" }}>
                 {headlines[source] && Object.values(headlines[source]).map((article, index) => (
                     <div key={index} className="mt-3 d-flex align-items-center" style={{ fontSize: "20px" }}>
@@ -66,3 +75,4 @@ function News() {
 }
 
 export default News;
+
