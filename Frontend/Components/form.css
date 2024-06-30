@@ -1,0 +1,5 @@
+.form-control{
+border: none;
+border-bottom: 1px solid gray;
+background-color:rgb(225, 230, 255);
+}
